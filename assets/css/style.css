@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
+:root {
+  --primary-color: rgb(17, 86, 102);
+  --primary-color-darker: rgb(9, 48, 56);
+}
+
+* {
+  box-sizing: border-box;
+  outline: 0;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0 0 0;
+  font-family: "Open sans", sans-serif;
+  font-size: 5.75em;
+  font-weight: bold;
+}
+
+h5 {
+  font-family: "Open sans", sans-serif;
+  text-align: center;
+  margin: 5px 0 0 0;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+h6 {
+  font-family: "Open sans", sans-serif;
+  text-align: center;
+  margin: 0px 0 0 0;
+  font-size: 0.75em;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open sans", sans-serif;
+  font-size: 1.3em;
+  line-height: 1.5em;
+  background-image: url("../img/fundo.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  bottom: 0;
+  color: black;
+  left: 0;
+  overflow: auto;
+  padding: 3em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  background-size: cover;
+}
+
+.item {
+  max-width: 400px;
+  min-width: 200px;
+  margin: 20px auto;
+  background: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+input {
+  font-family: "Open sans", sans-serif;
+  font-size: 1.3em;
+  display: block;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+select {
+  font-family: "Open sans", sans-serif;
+  font-size: 1.3em;
+  display: block;
+  margin: 20px auto;
+  padding: 20px;
+}
