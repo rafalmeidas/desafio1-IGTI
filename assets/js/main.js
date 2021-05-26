@@ -1,3 +1,7 @@
+const [confirmedE, deathE, recoveredE, activeE, comboE, todayE] = document.querySelectorAll("#confirmed, #death, #recovered, #active, #combo, #today");
+
+///total/country/${country}
+
 //Função para facilitar a consulta com fetch
 function fetchE(url) {
     return fetch(`https://api.covid19api.com/${url}`).then(res => res.json());
@@ -6,34 +10,74 @@ function fetchE(url) {
 async function queryAPI() {
     await Promise.all([fetchE("summary"), fetchE("countries")])
         .then(([summary, countries]) => {
-            //console.log(summary);
             populateIndicator(countries, summary);
         })
 
 }
+
 queryAPI();
 
-function populateSummary(summary) {
-    let [confirmed, death, recovered, active] = document.querySelectorAll("#confirmed, #death, #recovered, #active");
-
-    let summaryG = summary.Global;
-    let confirmados =
-        console.log(summary.Global);
-
-    confirmed.innerHTML = summaryG.NewConfirmed
+async function queryAPICountries(country) {
+    await Promise.all([fetchE(`country/${country}`)])
+        .then(countries => {
+            return countries;
+        });
 }
 
-function populateCountries(countries) {
-    let combo = document.getElementById("combo");
+function populateSummary(summary) {
 
-    let options = countries.map((country) => {
-        return `<option>${country.Country}</option>`;
+    let summaryG = summary.Global;
+
+    let confirmed = summaryG.TotalConfirmed;
+    let death = summaryG.TotalDeaths;
+    let recovered = summaryG.TotalRecovered;
+    let active = confirmed - (death + recovered);
+
+    confirmedE.innerHTML = formatNumber(confirmed);
+    deathE.innerHTML = formatNumber(death);
+    recoveredE.innerHTML = formatNumber(recovered);
+    activeE.innerHTML = formatNumber(active);
+
+    //Data
+    todayE.value = formatDate(summaryG.Date);
+}
+
+function populateSummaryGlobal(countries) {
+
+    countries.map((country) => {
+        let optionT = document.createElement('option');
+        optionT.text = country.Country;
+        optionT.value = country.Slug;
+
+        comboE.appendChild(optionT);
     });
+}
 
-    return combo.innerHTML = options.join("");
+function formatNumber(number) {
+    return number.toLocaleString("pt-BR");
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }
 
 function populateIndicator(countries, summary) {
-    populateCountries(countries);
+    populateSummaryGlobal(countries);
     populateSummary(summary);
 }
+
+comboE.addEventListener("change", () => {
+    queryAPICountries('thailand');
+    console.log(val);
+    todayE.value
+});
